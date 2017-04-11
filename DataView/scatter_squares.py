@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 import matplotlib.pyplot as plt
 
 # x_value = [1, 2, 3, 4, 5]

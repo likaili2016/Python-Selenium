@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 import matplotlib.pyplot as plt
 
 x_value = list(range(0, 1001))
