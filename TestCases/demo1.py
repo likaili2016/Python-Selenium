@@ -11,3 +11,6 @@ for i in range(1, 5):
 
 print con
 
+a = 1
+a = 12
+print a
