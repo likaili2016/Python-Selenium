@@ -46,10 +46,11 @@ print ("Repositories returned:", len(repo_dicts))
     # print 'Description:', i['description']
     # print '\t'
 
-names, stars = [], []
+names, plot_dicts = [], []
 for i in repo_dicts:
     names.append(i['name'])
-    stars.append(i['stargazers_count'])
+    plot_dict = {'value': i['stargazers_count'], 'label': i['description'], 'xlink': i['html_url']}  # description 有的为null 这样最后报错
+    plot_dicts.append(plot_dict)
 
 # 可视化
 my_style = LS('#333366', base_style=LCS)
@@ -68,8 +69,10 @@ chart = pygal.Bar(my_config, style=my_style)
 chart.title = 'Most-Starred Python Project on GiHub'
 chart.x_labels = names
 
-chart.add('', stars)
+chart.add('', plot_dicts)
 chart.render_to_file('python_repos.svg')
+
+
 
 
 
