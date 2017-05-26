@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import requests
+from operator import itemgetter
 import pygal
 from pygal.style import LightColorizedStyle as LCS, LightenStyle as LS
 
@@ -49,7 +50,7 @@ print ("Repositories returned:", len(repo_dicts))
 names, plot_dicts = [], []
 for i in repo_dicts:
     names.append(i['name'])
-    plot_dict = {'value': i['stargazers_count'], 'label': i['description'], 'xlink': i['html_url']}  # description 有的为null 这样最后报错
+    plot_dict = {'value': i['stargazers_count'], 'label': i.get('description', '空白描述'), 'xlink': i['html_url']}  # description 有的为null 这样最后报错
     plot_dicts.append(plot_dict)
 
 # 可视化
@@ -58,7 +59,7 @@ my_style = LS('#333366', base_style=LCS)
 my_config = pygal.Config()
 my_config.x_label_rotation = 45
 my_config.show_legend = False
-my_config.title_font_size = 24
+# my_config.title_font_size = 24
 my_config.label_font_size = 14
 my_config.major_label_font_size = 18
 my_config.truncate_label = 15

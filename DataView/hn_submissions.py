@@ -10,19 +10,18 @@ print "response code:", r.status_code  # 请求返回码
 # 处理有关每篇文章的返回信息
 submissions_ids = r.json()
 submission_dicts = []
-for submission_id in submission_dicts[:30]:
-     # 对于每一篇文章都执行一次api调用
-    url_new = ('https://hacker-news.firebaseio.com/v0/item/.json' + str(submission_id) + '.json')
+for submission_id in submissions_ids[:30]:
+    # 对于每一篇文章都执行一次api调用
+    url_new = ('https://hacker-news.firebaseio.com/v0/item/' + str(submission_id) + '.json')
     submission_r = requests.get(url_new)
+    print "submission_r code:", submission_r.status_code  # 打印每次请求的返回码
     response_dict = submission_r.json()
-
-    submission_dict = {'title': response_dict['title'],
-                        'link': 'http://news.ycombinator.com/item/id=' + str(submission_id),
-                        'comments': response_dict.get('descendants', 0)
-                      }
+    # print response_dict
+    submission_dict = {'title': response_dict['title'], 'link': 'http://news.ycombinator.com/item/id=' + str(submission_id), 'comments': response_dict.get('descendants', 0)}
     submission_dicts.append(submission_dict)
 
 submission_dicts = sorted(submission_dicts, key=itemgetter('comments'), reverse=True)
+print "submission_dicts:" + str(submission_dicts)
 for submission_dict in submission_dicts:
     print("Title:", submission_dict['title'])
     print("Discussion Link:", submission_dict['link'])
